@@ -1,2 +1,3 @@
-# 2122_M04UF2
-react
+# 2122_M02UF2
+ReactJS
+La carpeta que va correctamente es la Plantilla, la otra no funciona.

@@ -1,9 +1,8 @@
-
 function Title ()
 {
 	return (
 		<header>
-			<h1>ToDo App en React</h1>
+			<h1>Todo app en react</h1>
 		</header>
 	);
 
