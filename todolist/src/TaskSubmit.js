@@ -1,7 +1,7 @@
 function TaskSubmit ()
 {
 	return (
-		<button>Añadir</button>
+		<button>An(y)adir</button>
 	);
 
 }

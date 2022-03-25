@@ -8,7 +8,7 @@ class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			tasks: ["Beber Monster","Instalar Linux"]			
+			tasks: ["Jugar al LoL ","Desinstalar el LoL, depues de perder 1 ranked "]			
 		};
 	}
 
