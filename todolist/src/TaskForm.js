@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Input from './Input';
+import TaskInput from './TaskInput';
 import TaskSubmit from './TaskSubmit';
 
-class  Formulario extends React.Component {
+class TaskForm extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
@@ -18,21 +18,26 @@ class  Formulario extends React.Component {
 		this.state.task = "";
 		this.setState({
 			task: this.state.task
-		})
+		});
 	}
+
 	handleChange = (event) => {
 		this.setState({
 			task: event.target.value
 		});
 	}
 
-	render(){
+	render()
+	{
 		return (
 			<form onSubmit={this.handleSubmit}>
-				<Input handleChange={this.handleChange} />
-				<TaskSubmit />
+			<TaskInput value={this.state.task} handleChange={this.handleChange} />
+			<TaskSubmit />
 			</form>
 		);
+
 	}
 }
-export default Formulario;
+
+
+export default TaskForm;

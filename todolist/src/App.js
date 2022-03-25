@@ -1,34 +1,44 @@
 import React from 'react';
-import './App.css';
+//import './App.css';
 import Title from './Title';
-import Formulario from './Formulario';
-import Lista from './List';
+import TaskForm from './TaskForm';
+import TaskList from './TaskList';
 
-class App extends React.Component {
-	constructor(props) {
+class App extends React.Component{
+	constructor(props){
 		super(props);
 		this.state = {
-			tasks: ["Jugar al LoL ","Desinstalar el LoL, depues de perder 1 ranked "]			
+			tasks: []
 		};
 	}
 
 	addTask = task => {
+		console.log(task);
+
 		this.state.tasks.push(task);
-		this.setState({	
+		this.setState({
 			tasks: this.state.tasks
 		});
 	}
 
-	render() {
-  		return (
-    		<div className="App">
-				<Title />
-				<fieldset>
-					<Formulario addTask={this.addTask} />
-					<Lista tasks={this.state.tasks} />
-				</fieldset>
-			</div>
-  		);
+
+	removeTask = id_task => {
+		this.state.tasks.splice(id_task, 1);
+		this.setState({
+			tasks: this.state.tasks
+		});
 	}
+
+
+	render(){
+		return (
+<div className="App">
+<Title />
+<TaskForm addTask={this.addTask} />
+<TaskList tasks={this.state.tasks} removeTask={this.removeTask}/>
+</div>
+		);
+  }
 }
+
 export default App;
