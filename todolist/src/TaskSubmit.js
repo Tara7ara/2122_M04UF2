@@ -1,12 +1,9 @@
 function TaskSubmit ()
 {
 	return (
-	<button onClick={event => {
-		event.preventDefault();
-		console.log(Hola");
-		}
-		}>AÃ±adir</button>	
+		<button>Añadir</button>
 	);
+
 }
 
 export default TaskSubmit;
