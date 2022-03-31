@@ -34,7 +34,7 @@ class RemoveTask extends React.Component
 	};
 
 	removeTask = () => {
-		this.props.removeTask(this.props.id_task);
+		this.props.removeTask(this.props.task,this.props.order, this.props.task_id);
 		this.closeDialog();
 	};
 

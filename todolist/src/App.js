@@ -8,7 +8,8 @@ class App extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			tasks: []
+			tasks: [],
+			tasks_id:[]
 		};
 	}
 
@@ -22,29 +23,34 @@ class App extends React.Component{
 		console.log(data);
 		for (let i = 0; i < data.length; i++)
 		this.state.tasks.push(data[i].task);
+		this.state.tasks_id.push(data[i]._id);
+		}
 
-		this.setState({
-			tasks: this.state.tasks
-		});
-	};
+		addTask = task =>{	
+		fetch("http://10.40.1.0:3030", {
+			method:"POST",
+			body: '{"tasks":"' +task+'", "remove":"false"}'
+		})
+	 	.then(response => response.json() )
+     		.then(data => {let id = data[0]["_id"]
 
-	addTask = task => {
-		this.state.tasks.push(task);
-		this.setState({
-			tasks: this.state.tasks
+			this.state.tasks.push(task);
+			this.state.tasks_id.push(id);
+
+			this.setState({	tasks: this.state.tasks	});	
 		});
 
-		fetch('http://10.40.1.0:3030/', {
-			method: 'POST',
-			body: '{"task":"'+task+'"}'
-		});
 	}
 
 
-	removeTask = id_task => {
-		this.state.tasks.splice(id_task, 1);
+	removeTask = (task,  key, id_task) => {
+		this.state.tasks.splice(key, 1);
 		this.setState({
 			tasks: this.state.tasks
+		});
+		fetch("http://10.40.1.0:3030/", {
+			method:"POST",
+			body: '{"task_id":"'+id_task+'", "remove":"true"}'
 		});
 	}
 
@@ -53,8 +59,10 @@ class App extends React.Component{
 		return (
 <div className="App">
 <Title />
-<TaskForm addTask={this.addTask} />
-<TaskList tasks={this.state.tasks} removeTask={this.removeTask}/>
+<fieldset>
+<Formulario addTask={this.addTask} />
+<Lista tasks={this.state.tasks} tasks_id={this.state.tasks_id} removeTask={this.removeTask} />
+</fieldset>
 </div>
 		);
   }
