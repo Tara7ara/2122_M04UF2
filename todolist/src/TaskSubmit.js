@@ -19,7 +19,7 @@ handleSubmit = (event) => {
 render(){
 	return(
 	
-	<Tooltip title="Añadir tarea" >
+	<Tooltip title="A(ny)adir tarea" >
 		<Button variant="contained" onClick={this.handleSubmit}>
 			<AddCircleIcon />
 				</Button>

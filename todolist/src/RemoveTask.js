@@ -1,6 +1,4 @@
 import React from 'react';
-import './RemoveTask.css';
-
 
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -9,7 +7,6 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 
 import DialogTitle from '@mui/material/DialogTitle';
-
 
 class RemoveTask extends React.Component{
 
@@ -43,16 +40,7 @@ class RemoveTask extends React.Component{
 	<div>
 		<Button variant="contained" 
 				startIcon=<DeleteIcon /> 
-				onClick={this.handleOnClick}
-
-
-			//	{function(event){	
-					
-					//props.removeTask(props.task_id);
-
-				
-				
-		>	
+				onClick={this.handleOnClick}>	
 
 		BORRAR
 		 
@@ -63,13 +51,11 @@ class RemoveTask extends React.Component{
 			onClose={this.handleClose}
 			>
 			<DialogTitle>
-				{'De verdad quieres borrarlo?'}
+				{'Estas seguro de borrar?'}
 					</DialogTitle>
 
 			<DialogContent>
-
-				<img id="a" src={aTriste} />
-					</DialogContent>
+			</DialogContent>
 
 			<DialogActions>
 				<Button onClick={this.handleDelete}>
