@@ -32,7 +32,7 @@ class TaskForm extends React.Component{
 		return (
 			<form onSubmit={this.handleSubmit}>
 			<TaskInput value={this.state.task} handleChange={this.handleChange} />
-			<TaskSubmit />
+			<TaskSubmit HandleOnSubmit={this.handleSubmit} />
 			</form>
 		);
 
