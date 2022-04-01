@@ -24,7 +24,18 @@ mongo_client.connect(url, function(error, conn){
 
 
 http.createServer(function(req, res){
-	res.writeHead(200);
-	res.write("ola k ase");
-	res.end();
+	res.writeHead(200, {
+		'Content-Type': 'application/json',
+		'Access-Control-Allow-Origin': '*',
+		'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+	});
+
+	let tasks = db.collection("tasks").find();
+	tasks.toArray(function(err, data){
+		let tasks_string = JSON.stringify(data);
+		res.write(tasks_string);
+		res.end();
+	});
+
 }).listen(3030);
+;
