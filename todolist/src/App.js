@@ -10,25 +10,19 @@ class App extends React.Component{
 		this.state = {
 			tasks: []
 		};
-		console.log("Entrando");
-
 	}
 
-
-	componentDidMount = () =>{
-		console.log("a");
-		fetch("http://10.40.2.31:3030/")
+	componentWillMount(){
+		fetch("http://10.40.1.0:3030/")
 			.then(response => response.json())
 			.then(data => this.setTasks(data));
 	}
 
 	setTasks = data => {
-		let tasks = [];
+		console.log(data);
 		for (let i = 0; i < data.length; i++)
-			tasks.push(data[i].task);
+		this.state.tasks.push(data[i].task);
 
-		console.log(tasks);
-		this.state.tasks = tasks;
 		this.setState({
 			tasks: this.state.tasks
 		});
@@ -38,6 +32,11 @@ class App extends React.Component{
 		this.state.tasks.push(task);
 		this.setState({
 			tasks: this.state.tasks
+		});
+
+		fetch('http://10.40.1.0:3030/', {
+			method: 'POST',
+			body: '{"task":"'+task+'"}'
 		});
 	}
 
