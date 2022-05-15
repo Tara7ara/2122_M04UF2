@@ -1,63 +1,70 @@
 import React from 'react';
 //import './App.css';
 import Title from './Title';
-import TaskForm from './TaskForm';
-import TaskList from './TaskList';
+import Formulario from './TaskForm';
+import Lista from './TaskList';
 
-class App extends React.Component{
-	constructor(props){
+class App extends React.Component {
+	constructor(props) {
 		super(props);
 		this.state = {
-			tasks: []
+			tasks:[],
+			tasks_id:[]				
 		};
 	}
 
-	componentWillMount(){
-		fetch("http://10.40.1.0:3030/")
+	componentWillMount() {
+		fetch("http://192.168.1.195:3030")
 			.then(response => response.json())
 			.then(data => this.setTasks(data));
 	}
 
+
 	setTasks = data => {
-		console.log(data);
-		for (let i = 0; i < data.length; i++)
-		this.state.tasks.push(data[i].task);
+		for (let i = 0; i < data.length; i++) {
+			this.state.tasks.push(data[i].task);
+			this.state.tasks_id.push(data[i]._id);
+		}
+		this.setState({	tasks: this.state.tasks });
+	}
 
-		this.setState({
-			tasks: this.state.tasks
-		});
-	};
+	addTask = task =>{	
+		fetch("http://192.168.1.195:3030", {
+			method:"POST",
+			body: '{"tasks":"' +task+'", "remove":"false"}'
+		})
+	 	.then(response => response.json() )
+     		.then(data => {let id = data[0]["_id"]
 
-	addTask = task => {
-		this.state.tasks.push(task);
-		this.setState({
-			tasks: this.state.tasks
-		});
+			this.state.tasks.push(task);
+			this.state.tasks_id.push(id);
 
-		fetch('http://10.40.1.0:3030/', {
-			method: 'POST',
-			body: '{"task":"'+task+'"}'
+			this.setState({	tasks: this.state.tasks	});
 		});
 	}
 
-
-	removeTask = id_task => {
-		this.state.tasks.splice(id_task, 1);
+	removeTask = (task,  key, id_task) => {
+		this.state.tasks.splice(key, 1);
 		this.setState({
 			tasks: this.state.tasks
 		});
+		
+		fetch("http://192.168.1.195:3030/", {
+			method:"POST",
+			body: '{"task_id":"'+id_task+'", "remove":"true"}'
+		});
 	}
 
-
-	render(){
-		return (
-<div className="App">
-<Title />
-<TaskForm addTask={this.addTask} />
-<TaskList tasks={this.state.tasks} removeTask={this.removeTask}/>
-</div>
-		);
-  }
+	render() {
+  		return (
+    		<div className="App">
+				<Title />
+				<fieldset>
+					<Formulario addTask={this.addTask} />
+					<Lista tasks={this.state.tasks} tasks_id={this.state.tasks_id} removeTask={this.removeTask} />
+				</fieldset>
+			</div>
+  		);
+	}
 }
-
 export default App;
